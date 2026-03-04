@@ -15,13 +15,12 @@ class WorksInProgress extends Model
     protected $table = 'wips';
 
     /**
-     * Name of Id
+     * Id parameters
      * @var string
      */
     protected $primaryKey = 'work_in_progress_id';
     public $incrementing = false;
     public $keyType = 'string';
-
     protected $uuidColumn = 'work_in_progress_id';
 
     /**

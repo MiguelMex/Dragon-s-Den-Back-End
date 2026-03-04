@@ -11,6 +11,11 @@ class ReadListsWorks extends Model
     use HasUuids;
 
     /**
+     * table name
+     */
+    protected $table = 'read_lists_works';
+
+    /**
      * Intemediate table doesn't need fillables
      */
 }

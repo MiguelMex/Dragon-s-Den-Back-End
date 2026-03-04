@@ -13,10 +13,18 @@ class ReadLists extends Model
     use HasUuids;
 
     /**
+     * name of the table
+     */
+    protected $table = 'read_lists';
+
+    /**
      * Name of the Id
      * @var string
      */
     protected $primaryKey = 'read_list_id';
+    public $incrementing = false;
+    public $keyType = 'string';
+    protected $uuidColumn = 'read_list_id';
 
     //the mass asignable attributes
     protected $fillable = [
@@ -30,7 +38,7 @@ class ReadLists extends Model
      */
     public function user(): BelongsTo
     {
-        return $this->belongsTo(User::class, 'read_list_user');
+        return $this->belongsTo(User::class, 'read_list_user','user_id');
     }
 
     /**
@@ -39,6 +47,6 @@ class ReadLists extends Model
      */
     public function work(): BelongsToMany
     {
-        return $this->belongsToMany(Works::class,'readListsWorks','read_list_id','work_id');
+        return $this->belongsToMany(Works::class,'read_lists_works','read_list_id','work_id');
     }
 }

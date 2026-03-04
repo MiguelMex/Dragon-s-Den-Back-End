@@ -12,9 +12,17 @@ class AgeRestrictions extends Model
     use HasUuids;
 
     /**
-     * The primary key
+     * The table name
+     */
+    protected $table = 'age_restrictions';
+
+    /**
+     * Id parameters
      */
     protected $primaryKey = 'age_restriction_id';
+    public $incrementing = false;
+    public $keyType = 'string';
+    protected $uuidColumn = 'age_restriction_id';    
 
     /**
      * the fillable variables of the table

@@ -12,11 +12,19 @@ class Comments extends Model
     use HasUuids;
 
     /**
+     * name of the table
+     */
+    protected $table = 'comments';
+
+    /**
      * Name of the Id
      * 
      * @var string
      */
     protected $primaryKey = 'comment_id';
+    public $incrementing = false;
+    public $keyType = 'string';
+    protected $uuidColumn = 'comment_id';
 
     /**
      * The fillable atributes
@@ -33,7 +41,7 @@ class Comments extends Model
      */    
     public function work():BelongsTo
     {
-        return $this->belongsTo(Works::class,'comment_work');
+        return $this->belongsTo(Works::class,'comment_work','work_id');
     }
 
     /**
@@ -43,6 +51,6 @@ class Comments extends Model
      */
     public function user():BelongsTo
     {
-        return $this->belongsTo(User::class,'comment_user');
+        return $this->belongsTo(User::class,'comment_user','user_id');
     }
 }

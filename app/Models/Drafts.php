@@ -11,7 +11,10 @@ class Drafts extends Model
     //the UUID
     use HasUuids;
 
-    protected $uuidColumn = 'draft_id';
+    /**
+     * name of table
+     */
+    protected $table = 'drafts';
 
     /**
      * Name of the Id
@@ -19,6 +22,9 @@ class Drafts extends Model
      * @var string
      */
     protected $primaryKey = 'draft_id';
+    public $incrementing = false;
+    public $keyType = 'string';
+    protected $uuidColumn = 'draft_id';
 
     /**
      * The fillable atributes
@@ -35,6 +41,6 @@ class Drafts extends Model
      */
     public function WorkInProgress():BelongsTo
     {
-        return $this->belongsTo(WorksInProgress::class,'draft_work_in_progress');
+        return $this->belongsTo(WorksInProgress::class,'draft_work_in_progress','work_in_progress_id');
     }
 }

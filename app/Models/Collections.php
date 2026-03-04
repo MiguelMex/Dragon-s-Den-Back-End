@@ -14,11 +14,19 @@ class Collections extends Model
     use HasUuids;
 
     /**
+     * The table name
+     */
+    protected $table = 'collections';
+
+    /**
      * The primary key of the table
      * 
      * @var string
      */
     protected $primaryKey = 'collection_id';
+    public $incrementing = false;
+    public $keyType = 'string';
+    protected $uuidColumn = 'collection_id';
 
     /**
      * The mass asignable atributes
@@ -35,7 +43,7 @@ class Collections extends Model
      */
     public function works():BelongsToMany
     {
-        return $this->belongsToMany(Works::class, 'collectionsWorks','collection_id','work_id');
+        return $this->belongsToMany(Works::class, 'collections_works','collection_id','work_id');
     }
 
     /**
@@ -45,6 +53,6 @@ class Collections extends Model
      */
     public function user():BelongsTo
     {
-        return $this->belongsTo(User::class,'collection_user');
+        return $this->belongsTo(User::class,'collection_user','user_id');
     }
 }

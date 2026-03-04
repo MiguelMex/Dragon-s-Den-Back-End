@@ -11,6 +11,11 @@ class GenresWorks extends Model
     use HasUuids;
 
     /**
+     * name of table
+     */
+    protected $table = 'genres_works';
+
+    /**
      * Intermediate table doesn't need Id
      */
 

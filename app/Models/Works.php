@@ -18,9 +18,17 @@ class Works extends Model
     use HasUuids;
 
     /**
+     * table name
+     */
+    protected $table = 'works';
+
+    /**
      * Name of the Id
      */
     protected $primaryKey = 'work_id';
+    public $incrementing = false;
+    public $keyType = 'string';
+    protected $uuidColumn = 'work_id';
 
     /**
      * all fillable rows
@@ -97,11 +105,11 @@ class Works extends Model
      */
     public function readList():BelongsToMany
     {
-        return $this->belongsToMany(ReadLists::class,'readListsWorks','work_id','read_list_id');
+        return $this->belongsToMany(ReadLists::class,'read_lists_works','work_id','read_list_id');
     }
 
     public function collection():BelongsToMany
     {
-        return $this->belongsToMany(Collections::class,'collectionsWorks','work_id','collection_id');
+        return $this->belongsToMany(Collections::class,'collections_works','work_id','collection_id');
     }
 }

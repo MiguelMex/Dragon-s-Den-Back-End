@@ -12,11 +12,19 @@ class ReadHistory extends Model
     use HasUuids;
 
     /**
+     * table name
+     */
+    protected $table = 'read_historys';
+
+    /**
      * Name of the Id
      * 
      * @var string
      */
     protected $primaryKey = 'read_history_id';
+    public $incrementing = false;
+    public $keyType = 'string';
+    protected $uuidColumn = 'read_history_id';
 
     /**
      * The mass assinged atributes
@@ -32,7 +40,7 @@ class ReadHistory extends Model
      */
     public function user():BelongsTo
     {
-        return $this->belongsTo(User::class,'read_history_user');
+        return $this->belongsTo(User::class,'read_history_user','user_id');
     }
 
     /**
@@ -42,7 +50,7 @@ class ReadHistory extends Model
      */
     public function work():BelongsTo
     {
-        return $this->belongsTo(User::class,'read_history_work');
+        return $this->belongsTo(User::class,'read_history_work','work_id');
     }
 
     /**
@@ -52,6 +60,6 @@ class ReadHistory extends Model
      */
     public function chapter():BelongsTo
     {
-        return $this->belongsTo(Chapters::class,'read_history_chapter');
+        return $this->belongsTo(Chapters::class,'read_history_chapter','chapter_id');
     }
 }

@@ -13,11 +13,19 @@ class Chapters extends Model
     use HasUuids;
 
     /**
+     * Name of the table
+     */
+    protected $table = 'chapters';
+
+    /**
      * Name of the id
      * 
      * @var string
      */
     protected $primaryKey = 'chapter_id';
+    public $incrementing = false;
+    public $keyType = 'string';
+    protected $uuidColumn = 'chapter_id';
 
     /**
      * the fillable variables
@@ -35,7 +43,7 @@ class Chapters extends Model
      */
     public function work(): BelongsTo
     {
-        return $this->belongsTo(Works::class,'chapter_work');
+        return $this->belongsTo(Works::class,'chapter_work','work_id');
     }
 
     public function readHistory(): HasMany

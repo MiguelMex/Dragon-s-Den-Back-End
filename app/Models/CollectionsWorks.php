@@ -11,6 +11,11 @@ class CollectionsWorks extends Model
     use HasUuids;
 
     /**
+     * Table name
+     */
+    protected $table = 'collections_works';
+
+    /**
      * Doesn't have a primary key
      */
 

@@ -18,6 +18,11 @@ class User extends Authenticatable
      */
     use HasUuids;
 
+    /**
+     * id parameters
+     * 
+     * @var string
+     */
     protected $primaryKey = 'user_id';
     public $incrementing = false;
     public $keyType = 'string';

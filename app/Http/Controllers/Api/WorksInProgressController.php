@@ -10,7 +10,6 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
-use Illuminate\Http\Resources\Json\JsonResource;
 
 class WorksInProgressController extends Controller
 {
@@ -29,6 +28,11 @@ class WorksInProgressController extends Controller
     public function store(StoreWorksInProgressRequest $request)
     {
         try {
+            $exists = WorksInProgress::where('work_in_progress_title','=',$request->work_inprogress_title);
+            if ($exists != null)
+            {
+                return response()->json(['error'=>'Nombre ya existente']);
+            }
             $wip = WorksInProgress::create($request->validated());
             return new WorksInProgressResource($wip);
         } catch (\Exception $e) {

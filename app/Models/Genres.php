@@ -12,11 +12,19 @@ class Genres extends Model
     use HasUuids;
 
     /**
+     * name of the table
+     */
+    protected $table = 'genres';
+
+    /**
      * Name of the Id
      * 
      * @var string
      */
     protected $primaryKey = 'genre_id';
+    public $incrementing = false;
+    public $keyType = 'string';
+    protected $uuidColumn = 'genre_id';
 
     /**
      * the mass asingnable attributes
@@ -32,6 +40,6 @@ class Genres extends Model
      */
     public function work(): BelongsToMany
     {
-        return $this->belongsToMany(Works::class,'genresWorks','genre_id','work_id');
+        return $this->belongsToMany(Works::class,'genres_works','genre_id','work_id');
     }
 }
