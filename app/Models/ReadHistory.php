@@ -32,7 +32,10 @@ class ReadHistory extends Model
      * @var array
      */
     protected $fillable = [
-        'read_history_read_date',
+        'read_date',
+        'user',
+        'work',
+        'chapter',
     ];
 
     /**
@@ -40,7 +43,7 @@ class ReadHistory extends Model
      */
     public function user():BelongsTo
     {
-        return $this->belongsTo(User::class,'read_history_user','user_id');
+        return $this->belongsTo(User::class,'user','user_id');
     }
 
     /**
@@ -50,7 +53,7 @@ class ReadHistory extends Model
      */
     public function work():BelongsTo
     {
-        return $this->belongsTo(User::class,'read_history_work','work_id');
+        return $this->belongsTo(User::class,'work','work_id');
     }
 
     /**
@@ -60,6 +63,6 @@ class ReadHistory extends Model
      */
     public function chapter():BelongsTo
     {
-        return $this->belongsTo(Chapters::class,'read_history_chapter','chapter_id');
+        return $this->belongsTo(Chapters::class,'chapter','chapter_id');
     }
 }

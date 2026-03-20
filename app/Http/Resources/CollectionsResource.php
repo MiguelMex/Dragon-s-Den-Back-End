@@ -5,7 +5,7 @@ namespace App\Http\Resources;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class WorksInProgressResource extends JsonResource
+class CollectionsResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -15,9 +15,10 @@ class WorksInProgressResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
-            'id' => $this->resource->work_in_progress_id,
-            'title'=>$this->resource->title,
-            'author'=>$this->resource->author,
+            'id' => $this->collection_id,
+            'name'=> $this->name,
+            'description' => $this->description,
+            'user' => $this->user,
         ];
     }
 }

@@ -30,7 +30,7 @@ class Genres extends Model
      * the mass asingnable attributes
      */
     protected $fillable = [
-        'genre_name',
+        'name',
     ];
 
     /**
@@ -40,6 +40,6 @@ class Genres extends Model
      */
     public function work(): BelongsToMany
     {
-        return $this->belongsToMany(Works::class,'genres_works','genre_id','work_id');
+        return $this->belongsToMany(Works::class,'genre_works','genre_id','work_id');
     }
 }

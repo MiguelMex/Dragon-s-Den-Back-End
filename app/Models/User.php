@@ -62,7 +62,7 @@ class User extends Authenticatable
      */
     public function history(): HasMany
     {
-        return $this->hasMany(ReadHistory::class,'read_history_user');
+        return $this->hasMany(ReadHistory::class,'user');
     }
 
     /**
@@ -72,7 +72,7 @@ class User extends Authenticatable
      */
     public function work(): HasMany
     {
-        return $this->hasMany(Works::class,'work_author');
+        return $this->hasMany(Works::class,'author');
     }
 
     /**
@@ -81,7 +81,7 @@ class User extends Authenticatable
      */
     public function readList():HasMany
     {
-        return $this->hasMany(ReadLists::class,'read_list_user');
+        return $this->hasMany(ReadLists::class,'user');
     }
 
     /**
@@ -91,7 +91,7 @@ class User extends Authenticatable
      */
     public function comment(): HasMany
     {
-        return $this->hasMany(Comments::class,'comment_user');
+        return $this->hasMany(Comments::class,'user');
     }
 
     /**
@@ -102,7 +102,7 @@ class User extends Authenticatable
      */
     public function collection():HasMany
     {
-        return $this->hasMany(Collections::class,'collection_user');
+        return $this->hasMany(Collections::class,'user');
     }
 
     /**

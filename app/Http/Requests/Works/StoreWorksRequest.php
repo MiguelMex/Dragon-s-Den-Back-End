@@ -1,10 +1,11 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\Works;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
-class UpdateWorksInProgressRequest extends FormRequest
+class StoreWorksRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,7 +23,12 @@ class UpdateWorksInProgressRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'title'=>'required|string|max:255',
+            'title'=>'required|string|max:50',
+            'description'=>'required|string|max:2000',
+            'status'=>'required|boolean',
+            'cover'=>'required|string',
+            'author'=>['required',Rule::exists('users','user_id')],
+            'age_restriction'=>['required',Rule::exists('age_restrictions','age_restriction_id')],
         ];
     }
 }

@@ -1,11 +1,12 @@
 <?php
 
-use App\Actions\Fortify\CreateNewUser;
+use App\Http\Controllers\Api\AgeRestrictionsController;
 use App\Http\Controllers\Api\AuthController;
-use App\Http\Controllers\Api\TestController;
-use App\Http\Controllers\Api\UserController;
+use App\Http\Controllers\Api\ChaptersController;
+use App\Http\Controllers\Api\DraftsController;
+use App\Http\Controllers\Api\WorksController;
 use App\Http\Controllers\Api\WorksInProgressController;
-use Illuminate\Http\Request;
+use App\Http\Controllers\Api\GenresController;
 use Illuminate\Support\Facades\Route;
 
 // Route::get('/user', function (Request $request) {
@@ -20,6 +21,45 @@ Route::get('/wips/{id}',[WorksInProgressController::class,'show']);
 Route::post('/wips',[WorksInProgressController::class,'store']);
 Route::put('/wips/{id}',[WorksInProgressController::class,'update']);
 Route::delete('/wips/{id}',[WorksInProgressController::class,'destroy']);
+Route::get('/wips/{id}/user',[WorksInProgressController::class,'user']);
+Route::get('/wips/{id}/drafts',[WorksInProgressController::class,'drafts']);
+
+/**
+ * Routes for Age Restrictions
+ */
+Route::controller(AgeRestrictionsController::class)->group(function(){
+    Route::get('/restrictions','index');
+    Route::get('/restrictions/{id}','show');
+    Route::post('/restrictions','store');
+    Route::put('/restrictions/{id}','update');
+    Route::delete('/restrictions/{id}','destroy');
+    Route::get('/restrictions/{id}/works','work');
+});
+
+/**
+ * Routes for drafts
+ */
+Route::controller(DraftsController::class)->group(function(){
+    Route::get('/draft','index');
+    Route::get('/draftFromWip/{wip}','wipIndex');
+    Route::get('/draft/{id}','show');
+    Route::post('/draft','store');
+    Route::put('/draft/{id}','update');
+    Route::delete('/draft/{id}','destroy');
+    Route::get('/draft/{id}/wip','workInProgress');
+});
+
+/**
+ * Routes for Genres
+ */
+Route::controller(GenresController::class)->group(function(){
+    Route::get('/genre','index');
+    Route::get('/genre/{id}','show');
+    Route::post('/genre','store');
+    Route::put('/genre/{id}','update');
+    Route::delete('/genre/{id}','destroy');
+    Route::get('/genre/{id}/work','work');
+});
 
 /**
  * Auth routes
@@ -36,5 +76,27 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/user', [AuthController::class, 'user']);
     Route::put('/profile', [AuthController::class, 'updateProfile']);
     Route::put('/password', [AuthController::class, 'updatePassword']);
+});
+
+/**
+ * Routes for the chapter controller
+ */
+Route::controller(ChaptersController::class)->group(function(){
+    Route::get('/chapter','index');
+    Route::get('/chapter/{id}','show');
+    Route::post('/chapter','store');
+    Route::put('/chapter/{id}','update');
+    Route::delete('/chapter/{id}','destroy');
+    Route::get('/chapter/{id}/works','works');
+    Route::get('/chapter/{id}/history','readHistory');
+});
+
+Route::controller(WorksController::class)->group(function(){
+    Route::get('/works','index');
+    Route::get('/works/{id}','show');
+    Route::post('/works','store');
+    Route::put('/works/{id}','update');
+    Route::delete('/works/{id}','destroy');
+    Route::get('/works/{id}/author','author');
 });
 

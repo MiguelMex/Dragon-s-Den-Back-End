@@ -31,15 +31,22 @@ class AuthController extends Controller
 
     public function register(Request $request)
     {
-        $creator = new CreateNewUser();
-        $user = $creator->create($request->all());
+        try
+        {
+            $creator = new CreateNewUser();
+            $user = $creator->create($request->all());
 
-        $token = $user->createToken('auth-token')->plainTextToken;
+            $token = $user->createToken('auth-token')->plainTextToken;
 
-        return response()->json([
-            'user' => new UserResource($user),
-            'token' => $token,
-        ], 201);
+            return response()->json([
+                'user' => new UserResource($user),
+                'token' => $token,
+            ], 201);
+        }
+        catch (Exception $ex)
+        {
+            return response()->json(['Error'=>$ex->getMessage(), 'Sent'=>$request->all()]);
+        }
     }
 
     public function login(Request $request)
@@ -60,7 +67,7 @@ class AuthController extends Controller
         $token = $user->createToken('auth-token')->plainTextToken;
 
         return response()->json([
-            'usuario' => new UserResource($user),
+            'user' => new UserResource($user),
             'token' => $token,
         ]);
     }

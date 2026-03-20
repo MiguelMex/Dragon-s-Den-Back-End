@@ -30,8 +30,10 @@ class Comments extends Model
      * The fillable atributes
      */
     protected $fillable = [
-        'comment_response',
-        'comment_text',
+        'response',
+        'text',
+        'work',
+        'user',
     ];
 
     /**
@@ -41,7 +43,7 @@ class Comments extends Model
      */    
     public function work():BelongsTo
     {
-        return $this->belongsTo(Works::class,'comment_work','work_id');
+        return $this->belongsTo(Works::class,'work','work_id');
     }
 
     /**
@@ -51,6 +53,6 @@ class Comments extends Model
      */
     public function user():BelongsTo
     {
-        return $this->belongsTo(User::class,'comment_user','user_id');
+        return $this->belongsTo(User::class,'user','user_id');
     }
 }

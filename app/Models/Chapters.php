@@ -31,9 +31,10 @@ class Chapters extends Model
      * the fillable variables
      */
     protected $fillable = [
-        'chapter_name',
-        'chapter_route',
-        'chapter_cover',
+        'name',
+        'route',
+        'cover',
+        'work',
     ];
 
     /**
@@ -43,11 +44,15 @@ class Chapters extends Model
      */
     public function work(): BelongsTo
     {
-        return $this->belongsTo(Works::class,'chapter_work','work_id');
+        return $this->belongsTo(Works::class,'work','work_id');
     }
 
+    /**
+     * Relation with the read  history table
+     * @return HasMany<ReadHistory, Chapters>
+     */
     public function readHistory(): HasMany
     {
-        return $this->hasMany(ReadHistory::class,'read_history_chapter');
+        return $this->hasMany(ReadHistory::class,'chapter');
     }
 }

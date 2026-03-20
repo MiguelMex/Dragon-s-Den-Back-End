@@ -34,8 +34,9 @@ class Collections extends Model
      * @var array
      */
     protected $fillable = [
-        'collection_name',
-        'collection_description',
+        'name',
+        'description',
+        'user',
     ];
 
     /**
@@ -53,6 +54,6 @@ class Collections extends Model
      */
     public function user():BelongsTo
     {
-        return $this->belongsTo(User::class,'collection_user','user_id');
+        return $this->belongsTo(User::class,'user','user_id');
     }
 }

@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\AgeRestriction;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class UpdateWorksInProgressRequest extends FormRequest
+class StoreAgeRestrictionRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,7 +22,8 @@ class UpdateWorksInProgressRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'title'=>'required|string|max:255',
+            'name' => 'required|string',
+            'description' => 'required|string',
         ];
     }
 }

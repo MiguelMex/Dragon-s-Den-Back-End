@@ -1,17 +1,17 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\Drafts;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class UpdateWorksInProgressRequest extends FormRequest
+class UpdateDraftRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
      */
     public function authorize(): bool
     {
-        return true;
+        return true; //TODO: cambiarlo a autorización cuando se completen las pruebas, al igual que todos
     }
 
     /**
@@ -22,7 +22,7 @@ class UpdateWorksInProgressRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'title'=>'required|string|max:255',
+            'name' => 'required|string',
         ];
     }
 }

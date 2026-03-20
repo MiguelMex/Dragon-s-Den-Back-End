@@ -28,8 +28,9 @@ class ReadLists extends Model
 
     //the mass asignable attributes
     protected $fillable = [
-        'read_list_name',
-        'read_list_desription',
+        'name',
+        'desription',
+        'user',
     ];
 
     /**
@@ -38,7 +39,7 @@ class ReadLists extends Model
      */
     public function user(): BelongsTo
     {
-        return $this->belongsTo(User::class, 'read_list_user','user_id');
+        return $this->belongsTo(User::class, 'user','user_id');
     }
 
     /**

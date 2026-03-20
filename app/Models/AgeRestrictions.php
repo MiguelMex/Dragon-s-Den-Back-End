@@ -28,8 +28,8 @@ class AgeRestrictions extends Model
      * the fillable variables of the table
      */
     protected $fillable = [
-        'age_restriction_name',
-        'age_restriction_description',
+        'name',
+        'description',
     ];
 
     /**
@@ -39,6 +39,6 @@ class AgeRestrictions extends Model
      */
     public function works(): HasMany
     {
-        return $this->hasMany(Works::class,'work_age_restriction');
+        return $this->hasMany(Works::class,'age_restriction');
     }
 }

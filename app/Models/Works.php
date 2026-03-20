@@ -34,10 +34,12 @@ class Works extends Model
      * all fillable rows
      */
     protected $fillable = [
-        'work_title',
-        'work_description',
-        'work_status',
-        'work_cover',
+        'title',
+        'description',
+        'status',
+        'cover',
+        'author',
+        'age_restriction',
     ];
 
     /**
@@ -47,7 +49,7 @@ class Works extends Model
      */
     public function author(): BelongsTo
     {
-        return $this->belongsTo(User::class,'work_author');
+        return $this->belongsTo(User::class,'author','user_id');
     }
 
     /**
@@ -57,7 +59,7 @@ class Works extends Model
      */
     public function ageRestriction(): BelongsTo
     {
-        return $this->belongsTo(AgeRestrictions::class,'work_age_restriction');
+        return $this->belongsTo(AgeRestrictions::class,'age_restriction');
     }
 
     /**
@@ -67,7 +69,7 @@ class Works extends Model
      */
     public function chapter(): HasMany
     {
-        return $this->hasMany(Chapters::class,'chapter_work');
+        return $this->hasMany(Chapters::class,'work');
     }
 
     /**
@@ -77,7 +79,7 @@ class Works extends Model
      */
     public function comment():HasMany
     {
-        return $this->hasMany(Comments::class,'comment_work');
+        return $this->hasMany(Comments::class,'work');
     }
 
     /**
@@ -87,7 +89,7 @@ class Works extends Model
      */
     public function genres(): BelongsToMany
     {
-        return $this->belongsToMany(Genres::class,'genresWorks','work_id','genre_id');
+        return $this->belongsToMany(Genres::class,'genres_works','work_id','genre_id');
     }
 
     /**
@@ -96,7 +98,7 @@ class Works extends Model
      */
     public function readHistory(): HasMany
     {
-        return $this->hasMany(ReadHistory::class,'read_history_work');
+        return $this->hasMany(ReadHistory::class,'work');
     }
 
     /**

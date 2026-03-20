@@ -30,8 +30,9 @@ class Drafts extends Model
      * The fillable atributes
      */
     protected $fillable = [
-        'draft_name',
-        'draft_route',
+        'name',
+        'route',
+        'work_in_progress',
     ];
 
     /**
@@ -41,6 +42,6 @@ class Drafts extends Model
      */
     public function WorkInProgress():BelongsTo
     {
-        return $this->belongsTo(WorksInProgress::class,'draft_work_in_progress','work_in_progress_id');
+        return $this->belongsTo(WorksInProgress::class,'work_in_progress','work_in_progress_id');
     }
 }

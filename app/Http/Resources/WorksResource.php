@@ -15,9 +15,13 @@ class WorksResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
-            'id' => $this->id,
-            'name' => $this->name,
-            'route' => route('works.show', $this->id),
+            'id'=>$this->work_id,
+            'title'=>$this->title,
+            'description'=>$this->description,
+            'status'=>$this->status,
+            'cover'=>$this->cover,
+            'author'=>$this->author,
+            'age_restriction'=>$this->age_restriction,
         ];
     }
 }

@@ -23,7 +23,6 @@ class UpdateUserRequest extends FormRequest
     {
         return [
             'nickname'=>'nullable|string|max:100',
-            'updated_at'=>'required'
         ];
     }
 }

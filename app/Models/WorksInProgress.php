@@ -27,11 +27,9 @@ class WorksInProgress extends Model
      * The attributes
      */
     protected $fillable = [
-        'work_in_progress_title',
-        'work_in_progress_author'
+        'title',
+        'author'
     ];
-
-    public $timestamps = false;
 
     /**
      * Relation with drafts table
@@ -39,7 +37,7 @@ class WorksInProgress extends Model
      */
     protected function draft():HasMany
     {
-        return $this->hasMany(Drafts::class,'draft_work_in_progress');
+        return $this->hasMany(Drafts::class,'work_in_progress');
     }
 
     /**
@@ -48,6 +46,6 @@ class WorksInProgress extends Model
      */
     protected function user():BelongsTo
     {
-        return $this->belongsTo(User::class,'work_in_progress_author','user_id');
+        return $this->belongsTo(User::class,'author','user_id');
     }
 }

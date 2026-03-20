@@ -23,11 +23,11 @@ class StoreWorksInProgressRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'work_in_progress_title'=>'required|string|max:255',
-            'work_in_progress_author'=> [
+            'title'=>'required|string|max:255',
+            'author'=> [
                 'required',          
                 Rule::exists('users', 'user_id'),
-                ]
+                ],
         ];
     }
 }
