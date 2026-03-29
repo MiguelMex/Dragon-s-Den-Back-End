@@ -14,7 +14,7 @@ class ReadHistory extends Model
     /**
      * table name
      */
-    protected $table = 'read_historys';
+    protected $table = 'read_histories';
 
     /**
      * Name of the Id

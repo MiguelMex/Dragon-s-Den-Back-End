@@ -11,6 +11,7 @@ use App\Models\Drafts;
 use App\Models\WorksInProgress;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class DraftsController extends Controller
 {
@@ -67,6 +68,15 @@ class DraftsController extends Controller
             {
                 return response()->json(['Error' => "Ese nombre de draft ya existe en este trabajo"]);
             }
+
+            //Method to store the file in the local disk
+            $name = $request->name;
+            $time = date('d-m-y h:i:s');
+            $fileName = trim("$name-$time");
+
+            Storage::disk('public')->put($fileName,'');
+            $request->route = "storage/public/$fileName";
+
             $draft = Drafts::create($request->validated());
             return new DraftsResource($draft);
         }
@@ -142,8 +152,19 @@ class DraftsController extends Controller
     {
         try
         {
-            $wip = WorksInProgress::findOrFail($id)->WorkInProgress;
-            return new WorksInProgressResource($wip);
+            $draft = Drafts::find($id);
+            if($draft == null) 
+            {
+                return response()->json(['Error'=>'Ese draft no existe']);
+            }
+
+            $wip = Drafts::where('draft_id',$id)->with('workInProgress')->get();
+            if($wip == null)
+            {
+                return response()->json(['Error'=>'No existe tal proyecto']);
+            }
+
+            return response()->json($wip);
         }
         catch (Exception $ex)
         {

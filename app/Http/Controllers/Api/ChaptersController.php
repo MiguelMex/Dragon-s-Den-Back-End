@@ -9,22 +9,20 @@ use App\Http\Resources\ChaptersResource;
 use App\Http\Resources\WorksResource;
 use App\Models\Chapters;
 use App\Models\ReadHistory;
-use App\Models\Works;
 use Exception;
-use Illuminate\Http\Request;
 
 class ChaptersController extends Controller
 {
     /**
      * Get all chapters
-     * @return ChaptersResource|\Illuminate\Http\JsonResponse
+     * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\Resources\Json\AnonymousResourceCollection
      */
     public function index()
     {
         try 
         {
             $chapters = Chapters::all();
-            return new ChaptersResource($chapters);
+            return ChaptersResource::collection($chapters);
         } catch (Exception $ex) {
             return response()->json(['error' => 'Something went wrong']);
         }
@@ -120,14 +118,29 @@ class ChaptersController extends Controller
     /**
      * get the work of the chapter
      * @param mixed $id
-     * @return WorksResource|\Illuminate\Http\JsonResponse
+     * @return WorksResource|\Illuminate\Http\JsonResponse|ChaptersResource
      */
     public function work($id)
     {
         try
         {
-            $chapter = Works::findOrFail($id);
-            return new WorksResource($chapter);
+            $chapter = Chapters::find($id);
+
+            if ($chapter == null)
+            {
+                return response()->json(['Error'=>'Capitulo no encontrado'],404);
+            }
+
+            //$work = $chapter->with('work')->get();
+
+            $work = Chapters::where('chapter_id',$id)->with('work')->get();
+
+            if($work == null)
+            {
+                return response()->json(['Error'=>'Trabajo no encontrado para este capitullo'],404);
+            }
+
+            return response()->json($work);
         }
         catch (Exception $ex)
         {
@@ -139,8 +152,19 @@ class ChaptersController extends Controller
     {
         try
         {
-            $history = ReadHistory::findOrFail($id)->readHistory;
-            return new ReadHistoryResource($history);
+            $chapter = Chapters::find($id);
+            if($chapter == null){
+                return response()->json(['Error'=>'Capitulo no encontrado']);
+            }
+
+            $history = Chapters::where('chapter_id',$id)->with('readHistory')->get();
+
+            if($history == null)
+            {
+                return response()->json(['Error'=>'Historial no encontradp']);
+            }
+
+            return response()->json($history);
         }
         catch (Exception $ex)
         {

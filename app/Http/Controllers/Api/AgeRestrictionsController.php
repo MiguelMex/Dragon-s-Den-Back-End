@@ -120,8 +120,18 @@ class AgeRestrictionsController extends Controller
     {
         try
         {
-            $works = AgeRestrictions::findOrFail($id)->works;
-            return WorksResource::collection($works);
+            $restriction = AgeRestrictions::find($id);
+            if($restriction == null) 
+            {
+                return response()->json(['Error'=>'restricción no encontrada']);
+            }
+
+            $works = AgeRestrictions::where('age_restriction_id',$id)->with('works')->get();
+            if($works == null)
+            {
+                return response()->json(['Error'=>'no se encontraron trabajos para esta restricción']);
+            }
+            return response()->json(['trabajos'=>$works]);
         }
         catch (Exception $ex)
         {

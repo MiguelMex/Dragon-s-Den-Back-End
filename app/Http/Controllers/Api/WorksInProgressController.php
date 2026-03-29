@@ -6,6 +6,7 @@ use App\Http\Requests\StoreWorksInProgressRequest;
 use App\Http\Requests\UpdateWorksInProgressRequest;
 use App\Http\Resources\DraftsResource;
 use App\Http\Resources\UserResource;
+use App\Http\Resources\WipDraftsResource;
 use App\Models\Genres;
 use App\Models\WorksInProgress;
 use App\Http\Resources\WorksInProgressResource;
@@ -25,6 +26,7 @@ class WorksInProgressController extends Controller
         try
         {
             $wips = WorksInProgress::all();
+            //return response()->json($wips);
             return WorksInProgressResource::collection($wips);
         }
         catch (Exception $ex)
@@ -106,8 +108,14 @@ class WorksInProgressController extends Controller
     {
         try
         {
-            $drafts = Genres::findOrFail($id)->draft;
-            return DraftsResource::collection($drafts);
+            $exists = WorksInProgress::find($id);
+            if($exists == null)
+            {
+                return response()->json(['message'=>'WIP nnot found']);
+            }
+
+            $drafts = WorksInProgress::where('work_in_progress_id',$id)->with('drafts')->get();
+            return WipDraftsResource::collection($drafts);
         }
         catch (Exception $ex)
         {

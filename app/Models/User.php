@@ -65,6 +65,11 @@ class User extends Authenticatable
         return $this->hasMany(ReadHistory::class,'user');
     }
 
+    public function wips(): HasMany
+    {
+        return $this->hasMany(WorksInProgress::class,'author');
+    }
+
     /**
      * Relation with the Works table
      * 

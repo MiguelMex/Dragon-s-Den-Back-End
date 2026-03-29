@@ -133,8 +133,19 @@ class CollectionsController extends Controller
     {
         try
         {
-            $works = Collections::findOrFail($id)->works;
-            return new WorksResource($works);
+            $collection = Collections::find($id);
+            if($collection == null)
+            {
+                return response()->json(['Error'=>'Esa colección no existe']);
+            }
+
+            $works = Collections::where('collection_id',$id)->with('works')->get();
+            if($works == null)
+            {
+                return response()->json(['Error'=>'Este trabajo no existe']);
+            }
+
+            return response()->json($works);
         }
         catch (Exception $ex)
         {
@@ -151,8 +162,19 @@ class CollectionsController extends Controller
     {
         try
         {
-            $user = Collections::findOrFail($id)->user;
-            return new UserResource($user);
+            $collection = Collections::find($id);
+            if($collection == null)
+            {
+                return response()->json(['Error'=>'Esa colección no existe']);
+            }
+
+            $user = Collections::where('collection_id',$id)->with('user')->get();
+            if($user == null)
+            {
+                return response()->json(['Error'=>'Este usuario no existe']);
+            }
+
+            return response()->json($user);
         }
         catch (Exception $ex)
         {

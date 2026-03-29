@@ -35,7 +35,7 @@ class WorksInProgress extends Model
      * Relation with drafts table
      * @return HasMany<Drafts, WorksInProgress>
      */
-    protected function draft():HasMany
+    public function drafts():HasMany
     {
         return $this->hasMany(Drafts::class,'work_in_progress');
     }
@@ -44,7 +44,7 @@ class WorksInProgress extends Model
      * Relation with user
      * @return BelongsTo<User, WorksInProgress>
      */
-    protected function user():BelongsTo
+    public function user():BelongsTo
     {
         return $this->belongsTo(User::class,'author','user_id');
     }

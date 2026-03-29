@@ -3,7 +3,9 @@
 use App\Http\Controllers\Api\AgeRestrictionsController;
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\ChaptersController;
+use App\Http\Controllers\Api\CollectionsController;
 use App\Http\Controllers\Api\DraftsController;
+use App\Http\Controllers\Api\UsersController;
 use App\Http\Controllers\Api\WorksController;
 use App\Http\Controllers\Api\WorksInProgressController;
 use App\Http\Controllers\Api\GenresController;
@@ -58,7 +60,7 @@ Route::controller(GenresController::class)->group(function(){
     Route::post('/genre','store');
     Route::put('/genre/{id}','update');
     Route::delete('/genre/{id}','destroy');
-    Route::get('/genre/{id}/work','work');
+    Route::get('/genre/{id}/works','work');
 });
 
 /**
@@ -67,6 +69,13 @@ Route::controller(GenresController::class)->group(function(){
 Route::get('/users',[AuthController::class,'index']);
 Route::post('/register',[AuthController::class,'register']);
 Route::post('/login', [AuthController::class, 'login']);
+
+/**
+ * Routes to pull user's resources
+ */
+Route::controller(UsersController::class)->group(function(){
+    Route::get('/user/{id}/wips','wips');
+});
 
 /**
  * Routes protected by tokens
@@ -87,7 +96,7 @@ Route::controller(ChaptersController::class)->group(function(){
     Route::post('/chapter','store');
     Route::put('/chapter/{id}','update');
     Route::delete('/chapter/{id}','destroy');
-    Route::get('/chapter/{id}/works','works');
+    Route::get('/chapter/{id}/work','work');
     Route::get('/chapter/{id}/history','readHistory');
 });
 
@@ -98,5 +107,18 @@ Route::controller(WorksController::class)->group(function(){
     Route::put('/works/{id}','update');
     Route::delete('/works/{id}','destroy');
     Route::get('/works/{id}/author','author');
+});
+
+/**
+ * Routes for collections
+ */
+Route::controller(CollectionsController::class)->group(function(){
+    Route::get('/collections','index');
+    Route::get('/collections/{id}','show');
+    Route::post('/collections','store');
+    Route::put('/collections/{id}','update');
+    Route::delete('/collections/{id}','destroy');
+    Route::get('/collections/{id}/works','works');
+    Route::get('/collections/{id}/user','user');
 });
 

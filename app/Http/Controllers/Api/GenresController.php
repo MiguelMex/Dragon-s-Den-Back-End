@@ -10,6 +10,7 @@ use App\Http\Resources\GenresResource;
 use App\Models\Works;
 use Illuminate\Http\Request;
 use Exception;
+use function PHPUnit\Framework\returnArgument;
 
 class GenresController extends Controller
 {
@@ -123,8 +124,19 @@ class GenresController extends Controller
     {
         try
         {
-            $work = Works::findOrFail($id)->work;
-            return new WorksResource($work);
+            $genre = Genres::find($id);
+            if($genre == null)
+            {
+                return response()->json(['Error'=>'Este genero no existe']);
+            }
+
+            $work = Genres::where('genre_id',$id)->with('work')->get();
+            if($work == null)
+            {
+                return response()->json(['Error'=>'El trabajo no existe']);
+            }
+
+            return response()->json($work);
         }
         catch (Exception $ex)
         {
